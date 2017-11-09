@@ -1,0 +1,13 @@
+nav {
+    background-color: #004d40;
+    height: 30px;
+    line-height: 30px;
+}
+
+nav ul li a{
+    font-size: 13px;
+}
+
+nav .brand-logo{
+    margin-left: 30px;
+}

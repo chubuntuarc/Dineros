@@ -1,0 +1,7 @@
+.button-collapse{
+    color: #FFF;
+    left: 4px;
+    position: fixed;
+    top: 2px;
+    z-index: 999;
+}
