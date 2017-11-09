@@ -5,7 +5,7 @@
         <div class="row">
             <ul class="collapsible popout" data-collapsible="accordion">
                 <li>
-                    <div class="collapsible-header active"><h5>Hoy</h5></div>
+                    <div class="collapsible-header green white-text active"><h5>Hoy</h5></div>
                     <div class="collapsible-body white">
                         <table  class="highlight">
                             <thead>
@@ -29,7 +29,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header active"><h5>Mañana</h5></div>
+                    <div class="collapsible-header green white-text active"><h5>Mañana</h5></div>
                     <div class="collapsible-body white">
                         <table  class="highlight">
                             <thead>
@@ -53,7 +53,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header active" style="color:#004d40;"><h5>Proximos 5 días</h5></div>
+                    <div class="collapsible-header green white-text active" style="color:#004d40;"><h5>Proximos 5 días</h5></div>
                     <div class="collapsible-body white">
                         <table  class="highlight">
                             <thead>
