@@ -13,9 +13,9 @@
                 <a class="collapsible-header">Cuentas<i class="material-icons">arrow_drop_down</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a href="#!">Débito <span style="color:#004d40;">$100</span></a></li>
-                        <li><a href="#!">Crédito <span style="color:#004d40;">$6,000</span></a></li>
-                        <li><a href="#!">Efectivo <span style="color:#004d40;">$250</span></a></li>
+                        <li><a href="#!">Débito &nbsp;&nbsp;&nbsp;<span style="color:#004d40;">$100</span></a></li>
+                        <li><a href="#!">Crédito &nbsp;&nbsp;<span style="color:#004d40;">$6,000</span></a></li>
+                        <li><a href="#!">Efectivo &nbsp;<span style="color:#004d40;">$250</span></a></li>
                     </ul>
                 </div>
             </li>
