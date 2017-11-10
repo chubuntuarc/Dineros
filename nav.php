@@ -10,7 +10,7 @@ setlocale(LC_ALL,”es_ES”);
         <!-- <li><a href="sass.html">Sass</a></li> -->
         <li><a href="#!"><?php echo strftime("%A %d de %B del %Y"); ?></a></li>
         <li><form class="" action="logout.php" method="post">
-            <input type="submit" name="logout" value="Salir">
+            <input style="background-color:#004d40;" type="submit" name="logout" value="Salir">
         </form></li>
       </ul>
     </div>

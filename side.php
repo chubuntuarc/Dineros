@@ -38,15 +38,15 @@ while($row = mysqli_fetch_assoc($result)){
                     $result=$mysqli->query($sql);
                     $rows = $result->num_rows;
                     while($row = mysqli_fetch_assoc($result)){
-                        $debito = $row["debito"];
-                        $credito = $row["credito"];
-                        $efectivo = $row["efectivo"];
+                        $debito = number_format($row["debito"]);
+                        $credito = number_format($row["credito"]);
+                        $efectivo = number_format($row["efectivo"]);
                     }
                     ?>
                     <ul>
-                        <li><a href="#!">Débito &nbsp;&nbsp;&nbsp;<span style="color:#004d40;"><?php if($debito > 0){echo "$" . $debito;}else{ echo "$0.00"; }; ?></span></a></li>
-                        <li><a href="#!">Crédito &nbsp;&nbsp;<span style="color:#004d40;"><?php if($credito > 0){echo "$" . $credito;}else{ echo "$0.00"; }; ?></span></a></li>
-                        <li><a href="#!">Efectivo &nbsp;<span style="color:#004d40;"><?php if($efectivo > 0){echo "$" . $efectivo;}else{ echo "$0.00"; }; ?></span></a></li>
+                        <li><a href="account.php?type=deb">Débito &nbsp;&nbsp;&nbsp;<span style="color:#004d40;"><?php if($debito > 0){echo "$" . $debito;}else{ echo "$0.00"; }; ?></span></a></li>
+                        <li><a href="account.php?type=cre">Crédito &nbsp;&nbsp;<span style="color:#004d40;"><?php if($credito > 0){echo "$" . $credito;}else{ echo "$0.00"; }; ?></span></a></li>
+                        <li><a href="account.php?type=efe">Efectivo &nbsp;<span style="color:#004d40;"><?php if($efectivo > 0){echo "$" . $efectivo;}else{ echo "$0.00"; }; ?></span></a></li>
                     </ul>
                 </div>
             </li>
