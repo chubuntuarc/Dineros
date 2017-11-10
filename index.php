@@ -1,3 +1,9 @@
+<?php
+session_start();
+if($_SESSION["user_id"] == 0){
+    header("Location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>

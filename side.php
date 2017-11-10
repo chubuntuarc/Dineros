@@ -1,7 +1,13 @@
 <?php
+session_start();
+if($_SESSION["user_id"] == 0){
+    header("Location: login.php");
+}else{
+    $user =$_SESSION["user_id"];
+}
 //tomamos los datos del archivo conexion.php
 require("connect.php");
-$sql = "SELECT * FROM users WHERE id_user = 2";
+$sql = "SELECT * FROM users WHERE id_user = $user";
 //se envia la consulta
 $result=$mysqli->query($sql);
 $rows = $result->num_rows;
@@ -25,9 +31,9 @@ while($row = mysqli_fetch_assoc($result)){
                 <a class="collapsible-header" style="margin-top:-50px;">Cuentas<i class="material-icons">arrow_drop_down</i></a>
                 <div class="collapsible-body">
                     <?php
-                    $sql = "SELECT (SELECT SUM(cash) FROM accounts WHERE owner = 2 AND type = 1) as 'debito' ,
-                    (SELECT SUM(cash) FROM accounts WHERE owner = 2 AND type = 2) as 'credito' ,
-                    SUM(cash) as 'efectivo' FROM accounts WHERE owner = 2 AND type = 3";
+                    $sql = "SELECT (SELECT SUM(cash) FROM accounts WHERE owner = $user AND type = 1) as 'debito' ,
+                    (SELECT SUM(cash) FROM accounts WHERE owner = $user AND type = 2) as 'credito' ,
+                    SUM(cash) as 'efectivo' FROM accounts WHERE owner = $user AND type = 3";
                     //se envia la consulta
                     $result=$mysqli->query($sql);
                     $rows = $result->num_rows;
