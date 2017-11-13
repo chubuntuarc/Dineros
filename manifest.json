@@ -1,0 +1,15 @@
+{
+    "name":"Dineros",
+    "version":"0.1",
+    "manifest_version":2,
+    "description":"Administra tus finanzas",
+    "app":{
+        "urls":["http://proyectoalis.com/dineros"],
+        "launch":{
+            "web_url":"http://proyectoalis.com/dineros"
+        }
+    },
+    "icons":{
+        "128": "icon.png"
+    }
+}
