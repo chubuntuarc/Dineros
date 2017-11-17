@@ -1,178 +1,83 @@
-<?php
-session_start();
-if($_SESSION["user_id"] == 0){
-    header("Location: login.php");
-}else{
-    $type = $_GET["type"];
-}
-?>
+<?php require("session_check.php");
+$type = $_GET["type"];
+switch ($type) {
+    case 'deb':
+    $titulo = 'Mis cuentas de débito';
+    $head = 'Mis cuentas | Débito';
+    break;
+    case 'cre':
+    $titulo = 'Mis cuentas de crédito';
+    $head = 'Mis cuentas | Crédito';
+    break;
+    case 'efe':
+    $titulo = 'Mis cuentas de efectivo';
+    $head = 'Mis cuentas | Efectivo';
+    break;
+    default:
+    $titulo = 'Mis cuentas';
+    $head = 'Mis cuentas';
+    break;
+} ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Dineros | Mis cuentas</title>
-    <!-- JQuery 3.X-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <!-- Iconos -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Estilo del index -->
-    <link rel="stylesheet" href="css/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php echo $head; ?></title>
+    <link rel="shortcut icon" href="apple-icon-57x57.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
 </head>
-<body class="grey lighten-3">
-    <?php include("nav.php"); ?>
-    <?php include("side.php");?>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+<body>
+    <?php include("navigation.php"); ?>
 
-    <link rel="stylesheet" href="css/content.css">
-    <div class="row">
-        <div class="container">
-            <div class="row">
-                <ul class="collapsible popout" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header green white-text active">
-                            <?php
-                            switch ($type) {
-                                case 'deb':
-                                echo "<h5>Mis cuentas de débito</h5>";
-                                break;
-                                case 'cre':
-                                echo "<h5>Mis cuentas de crédito</h5>";
-                                break;
-                                case 'efe':
-                                echo "<h5>Mi efectivo</h5>";
-                                break;
-                                default:
-                                echo "Mis cuentas";
-                                break;
-                            }
-                            ?>
-                        </div>
-                        <div class="collapsible-body white">
-                            <table  class="highlight">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th <?php if($type == 'efe'){echo "style='display:none;'";} ?>>Fecha expiración</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        <?php
-                                        switch ($type) {
-                                            case 'deb':
-                                            $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user AND type = 1";
-                                            break;
-                                            case 'cre':
-                                            $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user AND type = 2";
-                                            break;
-                                            case 'efe':
-                                            $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user AND type = 3";
-                                            break;
-                                            default:
-                                            $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user";
-                                            break;
-                                        }
-                                        //se envia la consulta
-                                        $result=$mysqli->query($sql);
-                                        $rows = $result->num_rows;
-                                        while($row = mysqli_fetch_assoc($result)){
-                                            echo "<tr>";
-                                            echo "<td>".$row["name"]."</td>";
-                                            if($type!='efe'){echo "<td>".$row["expiration"]."</td>";}
-                                            echo "<td>$".number_format($row["cash"])."</td>";
-                                            echo "</tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                                <div class="row">
-                                    <br><br><br>
-                                    <a class="waves-effect waves-light btn modal-trigger col s2 offset-s10" href="#modal1">Agregar<i class="material-icons right">add_box</i></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    <?php echo $titulo ?>
+                </h1>
+                <h2 class="subtitle">
+                    Administrar cuentas
+                </h2>
             </div>
         </div>
+    </section>
 
-        <!-- Modal Agregar -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <?php
-                switch ($type) {
-                    case 'deb':
-                    echo "<h5 style='margin-top:-20px;padding-bottom:10px;'>Agregar cuenta de débito</h5>";
-                    break;
-                    case 'cre':
-                    echo "<h5 style='margin-top:-20px;padding-bottom:10px;'>Agregar cuenta de crédito</h5>";
-                    break;
-                    case 'efe':
-                    echo "<h5 style='margin-top:-20px;padding-bottom:10px;'>Agregar cuenta de efectivo</h5>";
-                    break;
-                }
-                ?>
-                <form class="col s12" action="new_account.php" method="post">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Nombre de la cuenta" id="account" name="account" type="text" class="validate">
-                            <label for="account">Cuenta</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" id="expiration" name="expiration" class="datepicker" placeholder="Fecha de expiración">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input placeholder="Cantidad actualmente en la cuenta" id="cash" name="cash" type="text" class="validate">
-                            <label for="cash">Cantidad</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light col s2 offset-s10" type="submit" name="new" value="nueva">Guardar
-                </button>
-            </div>
-        </div>
+    <section>
+        <br>
+        <nav class="level">
+            <?php
+            switch ($type) {
+                case 'deb':
+                $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user AND type = 1";
+                break;
+                case 'cre':
+                $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user AND type = 2";
+                break;
+                case 'efe':
+                $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user AND type = 3";
+                break;
+                default:
+                $sql = "SELECT name,expiration, cash FROM accounts WHERE owner = $user";
+                break;
+            }
+            //se envia la consulta
+            $result=$mysqli->query($sql);
+            $rows = $result->num_rows;
+            while($row = mysqli_fetch_assoc($result)){
+                echo '<div class="level-item has-text-centered">';
+                echo '<div>';
+                echo '<p class="heading">'.$row["name"].'</p>';
+                echo '<p class="title">$'.number_format($row["cash"]).'</p>';
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
+        </nav>
+    </section>
 
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large green">
-                <i class="large material-icons">blur_circular</i>
-            </a>
-            <ul>
-                <li><a class="btn-floating red"><i class="material-icons">clear
-                </i></a></li>
-                <li><a class="btn-floating blue"><i class="material-icons">add</i></a></li>
-            </ul>
-        </div>
+    <?php include("footer.php"); ?>
 
-
-        <script type="text/javascript">
-        $(document).ready(function(){
-            $('.tap-target').tapTarget('open');
-            $('.collapsible').collapsible();
-            $('.modal').modal();
-        });
-        $(".button-collapse").sideNav();
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15, // Creates a dropdown of 15 years to control year,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false // Close upon selecting a date,
-        });
-        </script>
-    </body>
-    </html>
+</body>
+</html>
